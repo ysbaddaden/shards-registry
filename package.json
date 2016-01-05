@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "bower": "*",
+    "gulp": "*",
+    "gulp-sass": "*",
+    "gulp-uglify": "*",
+    "gulp-concat": "*",
+    "merge-stream": "*",
+    "through2": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/bower install"
+  }
+}

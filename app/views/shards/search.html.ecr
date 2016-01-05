@@ -1,0 +1,9 @@
+<h2>Search: <%= params["q"] %></h2>
+
+<ul class="shards-list">
+  <% shards.each do |shard| %>
+    <li>
+      <%= link_to shard.name, shard_path(shard) %>
+    </li>
+  <% end %>
+</ul>

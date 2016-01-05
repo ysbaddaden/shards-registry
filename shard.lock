@@ -1,0 +1,30 @@
+version: 1.0
+shards:
+  common_mark:
+    github: ysbaddaden/crystal-cmark
+    version: 0.1.0
+
+  frost:
+    path: /home/julien/work/github/frost
+    version: 0.1.0
+
+  minitest:
+    github: ysbaddaden/minitest.cr
+    version: 0.2.0
+
+  pg:
+    github: will/crystal-pg
+    version: 0.5.0
+
+  pool:
+    github: ysbaddaden/pool
+    version: 0.2.0
+
+  selenium-webdriver:
+    github: ysbaddaden/selenium-webdriver-crystal
+    version: 0.1.0
+
+  shards:
+    github: ysbaddaden/shards
+    version: 0.5.4
+

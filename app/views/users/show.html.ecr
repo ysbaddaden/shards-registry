@@ -1,0 +1,19 @@
+<h1>
+  <%= tag :img, { src: gravatar_url(user.email), class: "avatar avatar-50" } %>
+  <%= user.name %>
+</h1>
+
+<ul>
+  <li>Total shards: <%= user.shards.count %></li>
+
+  <% if accessible?(user) %>
+    <li><%= link_to "Edit profile", edit_user_path(user) %></li>
+  <% end %>
+</ul>
+
+<h6>Shards</h6>
+<ul>
+  <% user.shards.each do |shard| %>
+    <li><%= link_to shard.name, shard_path(shard) %></li>
+  <% end %>
+</ul>

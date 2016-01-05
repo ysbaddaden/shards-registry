@@ -1,0 +1,67 @@
+@import "base/variables";
+
+// bootstrap
+@import "variables";
+@import "mixins";
+
+@import "normalize";
+@import "print";
+
+@import "reboot";
+@import "type";
+@import "images";
+@import "code";
+@import "grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+
+@import "nav";
+@import "navbar";
+@import "alert";
+@import "list-group";
+
+@import "utilities";
+
+//h1, h2, h3, h4, h5, h6 {
+//  font-weight: bold;
+//}
+
+pre {
+  display: block;
+  padding: $spacer;
+  border-radius: 4px;
+  background: $pre-bg;
+}
+
+#header {
+  margin-bottom: 2 * $spacer;
+  background: $navbar-color;
+
+  .navbar {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .navbar-form {
+    margin-top: 4px;
+  }
+
+  .crystal-icon {
+    display: inline-block;
+    width: 20px;
+  }
+}
+
+.shard-readme h1:first-child {
+  display: none;
+}
+
+.has-error .text-muted {
+  color: rgb(217, 83, 79);
+}
+
+@import "components/flash";
+@import "components/avatar";
+@import "components/filter-letter";
+@import "components/hljs";

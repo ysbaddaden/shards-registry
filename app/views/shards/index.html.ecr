@@ -1,0 +1,21 @@
+<h2>Shards</h2>
+
+<ul class="list-inline filter-letter">
+  <li class="<%= "active" unless params["letter"]? %>">
+    <%= link_to "All", shards_path %>
+  </li>
+
+  <% ('a' .. 'z').each do |letter| %>
+    <li <%= "class=\"active\"" if params["letter"]? == letter.to_s %>>
+      <%= link_to letter.upcase, shards_path + "?letter=#{ letter }" %>
+    </li>
+  <% end %>
+</ul>
+
+<ul class="shards-list">
+  <% shards.each do |shard| %>
+    <li>
+      <%= link_to shard.name, shard_path(shard) %>
+    </li>
+  <% end %>
+</ul>

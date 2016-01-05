@@ -1,0 +1,4 @@
+#! /usr/bin/env crystal
+require "frost/record/migration"
+require "../db/migrations/*"
+require "frost/record/migration/cli"

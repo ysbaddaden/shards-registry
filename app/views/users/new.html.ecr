@@ -1,0 +1,29 @@
+<h2>Register</h2>
+
+<%= form_tag users_path, method: "post" do %>
+  <% if user.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      We can't register because of some errors!
+    </div>
+  <% end %>
+
+  <%= content_tag :div, { class: "form-group" + (has_error?(user, :name) ? " has-error" : "") } do %>
+    <%= label_tag :user_name, "Name:", { class: "control-label" } %>
+    <%= text_field_tag "user[name]", user.name, { id: "user_name", class: "form-control" } %>
+  <% end %>
+
+  <%= content_tag :div, { class: "form-group" + (has_error?(user, :email) ? " has-error" : "") } do %>
+    <%= label_tag :user_email, "Email:", { class: "control-label" } %>
+    <%= email_field_tag "user[email]", user.email, { id: "user_email", class: "form-control" } %>
+  <% end %>
+
+  <%= content_tag :div, { class: "form-group" + (has_error?(user, :password) ? " has-error" : "") } do %>
+    <%= label_tag :user_password, "Password:", { class: "control-label" } %>
+    <%= password_field_tag "user[password]", nil, { id: "user_password", class: "form-control" } %>
+  <% end %>
+
+  <div>
+    <%= link_to "Cancel", user_path(user), { class: "btn btn-secondary" } %>
+    <%= submit_tag "Register", nil, { class: "btn btn-primary" } %>
+  </div>
+<% end %>

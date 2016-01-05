@@ -1,0 +1,39 @@
+minitest_010:
+  shard_id: 1
+  number: 0.1.0
+
+minitest_011:
+  shard_id: 1
+  number: 0.1.1
+
+minitest_012:
+  shard_id: 1
+  number: 0.1.2
+
+minitest_013:
+  shard_id: 1
+  number: 0.1.3
+
+pg_010:
+  shard_id: 2
+  number: 0.1.0
+
+pg_032:
+  shard_id: 2
+  number: 0.3.2
+
+pg_031:
+  shard_id: 2
+  number: 0.3.1
+
+pg_030:
+  shard_id: 2
+  number: 0.3.0
+
+pg_020:
+  shard_id: 2
+  number: 0.2.0
+
+#webmock_000:
+#  shard_id: 3
+#  number: 0.0.0

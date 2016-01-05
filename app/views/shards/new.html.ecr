@@ -1,0 +1,24 @@
+<h2>New Shard</h2>
+
+<%= form_tag shards_path, method: "post" do %>
+  <% if shard.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      We can't create the Shard because of some errors!
+    </div>
+  <% end %>
+
+  <%= content_tag :div, { class: "form-group" + (has_error?(shard, :url) ? " has-error" : "") } do %>
+    <%= label_tag :shard_url, { class: "control-label" } do %>
+      GIT URL:
+      <% if has_error?(shard, :url) %>
+        <small class="text-muted">(<%= error_message(shard, :url) %>)</small>
+      <% end %>
+    <% end %>
+    <%= text_field_tag "shard[url]", shard.url, { id: "shard_url", class: "form-control" } %>
+  <% end %>
+
+  <div>
+    <%= link_to "Cancel", root_path, { class: "btn btn-secondary" } %>
+    <%= submit_tag "Create Shard", nil, { class: "btn btn-primary" } %>
+  </div>
+<% end %>

@@ -1,0 +1,74 @@
+<% version = shard.versions.latest %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= shard.name %>
+      <% if description = version.try(&.description) %>
+        <small class="text-muted"><%= description %></small>
+      <% end %>
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 shard-readme">
+    <% if readme = version.try(&.readme) %>
+      <%= CommonMark.new(readme, safe: true, smart: true).to_html %>
+    <% else %>
+      No <code>README.md</code> found for <%= shard.name %>.
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <ul class="list-unstyled">
+      <li>
+        <%= link_to(user_path(shard.user)) do %>
+          <%= tag :img, { src: gravatar_url(shard.user.email, size: 40), class: "avatar avatar-20" } %>
+          <%= shard.user.name %>
+        <% end %>
+      </li>
+      <li>
+        <%= shard.repository.type %>
+        <%= link_to shard.repository.repo || shard.url, shard.url %>
+      </li>
+      <% if license = version.try(&.license).presence %>
+        <li>
+          <%= link_to license, osi_license_url(license) %> License
+        </li>
+      <% end %>
+    </ul>
+
+    <pre><code class="language-yaml"><%= shard.as_yaml_dependency %></code></pre>
+
+    <h6>Versions</h6>
+    <ul class="list-unstyled shard-versions">
+      <% shard.versions.order(:number, :desc).limit(5).each do |version| %>
+        <li>
+          <strong><%= version.number %></strong>
+          <small class="text-muted"><%= version.released_at %></small>
+        </li>
+      <% end %>
+      <% if (count = shard.versions.count) > 5 %>
+        <li><%= link_to "See all #{ count } versions", shard_versions_path(shard) %></li>
+      <% end %>
+    </ul>
+
+    <% if accessible?(shard) %>
+      <h6>Administrate</h6>
+      <ul class="list-inline">
+        <li>
+          <%= button_to "refresh shard", refresh_shard_path(shard), attributes: {
+            class: "btn btn-primary"
+          } %>
+        </li>
+        <li>
+          <%= button_to "delete shard", shard_path(shard), method: "delete", attributes: {
+            data_confirm: "Are you sure you want to delete this shard?",
+            class: "btn btn-danger"
+          } %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>

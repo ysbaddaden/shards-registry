@@ -1,0 +1,18 @@
+.filter-letter {
+  display: flex;
+
+  li {
+    flex: 1 1 0%;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    background: rgb(244,
+    244, 244) none repeat scroll 0% 0%;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}

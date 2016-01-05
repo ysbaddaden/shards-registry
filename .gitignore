@@ -1,0 +1,23 @@
+# artefacts
+/bin/registry
+/log
+/.env
+/tmp
+
+# configuration
+/config/database.yml
+
+# assets
+/node_modules
+/public/stylesheets
+/public/javascripts
+/vendor
+
+# crystal artefacts
+.crystal
+.shards
+/libs
+/doc
+
+# test artefacts
+/test/.repositories

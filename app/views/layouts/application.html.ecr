@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>Shards</title>
+
+  <link rel="stylesheet" href="/stylesheets/application.css"/>
+  <script src="/javascripts/application.js"></script>
+
+  <link href="/images/crystal-icon.svg" rel="icon" type="image/svg+xml">
+</head>
+<body>
+
+  <div id="header">
+    <div class="container">
+      <nav class="navbar navbar-dark">
+        <a class="navbar-brand" href="/shards">
+          <img src="/images/crystal-icon.svg" alt="" class="crystal-icon"/>
+          Shards
+        </a>
+
+        <%= form_tag search_shards_path, method: "get", attributes: { class: "form-inline navbar-form pull-left" } do %>
+          <%= search_field_tag :q, params["q"]?, { class: "form-control form-control-sm", placeholder: "Search Shards" } %>
+        <% end %>
+
+        <ul class="nav navbar-nav pull-right">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "New Shard", new_shard_path, { class: "nav-link" } %>
+            </li>
+            <li class="nav-item">
+              <%= link_to current_user.name, user_path(current_user), { class: "nav-link" } %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Logout", user_session_path, { class: "nav-link", data_method: "delete" } %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Register", new_user_path, { class: "nav-link" } %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Login", new_user_session_path, { class: "nav-link" } %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+
+        <% if flash = flash_message %>
+          <% if notice = flash["notice"]? %>
+            <div class="flash alert alert-success" role="alert">
+              <%= notice %>
+            </div>
+          <% elsif alert = flash["alert"]? %>
+            <div class="flash alert alert-danger" role="alert">
+              <%= alert %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

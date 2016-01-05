@@ -1,0 +1,23 @@
+minitest:
+  id: 1
+  user_id: 1
+  name: minitest
+  url: "https://github.com/ysbaddaden/minitest.cr.git"
+
+pg:
+  id: 2
+  user_id: 2
+  name: pg
+  url: "https://github.com/will/crystal-pg.git"
+
+webmock:
+  id: 3
+  user_id: 3
+  name: webmock
+  url: "https://github.com/manastech/webmock.git"
+
+minigame:
+  id: 4
+  user_id: 1
+  name: minigame
+  url: "file:///tmp/minigame/.git"

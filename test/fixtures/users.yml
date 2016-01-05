@@ -1,0 +1,20 @@
+julien:
+  id: 1
+  name: julien
+  email: julien@example.com
+  encrypted_password: "$2a$04$iTJnbexCYR5/fo/1RjfZBOqxEeeL/er/AFEtjV5fl04qez.OISs8e" # secret
+  api_key: "UauyqxMbdui4CicUjSAAe99ctEaw9l4qT099HSavsKM"
+
+will:
+  id: 2
+  name: will
+  email: will@example.com
+  encrypted_password: "$2a$04$iTJnbexCYR5/fo/1RjfZBOqxEeeL/er/AFEtjV5fl04qez.OISs8e" # secret
+  api_key: "2DnF9RxS8u3zrqb9ZzlMR7qN5SquvD99YD8YvUDFR04"
+
+ary:
+  id: 3
+  name: ary
+  email: ary@example.com
+  encrypted_password: "$2a$04$iTJnbexCYR5/fo/1RjfZBOqxEeeL/er/AFEtjV5fl04qez.OISs8e" # secret
+  api_key: "gKHEMdvS-va48c3t1ljJ7gi0AoS1HIxZPsoQTRI6qno"

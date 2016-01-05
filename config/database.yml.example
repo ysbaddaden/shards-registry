@@ -1,0 +1,22 @@
+development:
+  adapter: postgres
+  database: shard_registry_development
+  username: postgres
+  password:
+  #pool: 25
+  timeout: 1.0
+
+test:
+  adapter: postgres
+  database: shard_registry_test
+  username: postgres
+  password:
+  pool: 1
+
+production:
+  adapter: postgres
+  database: shard_registry
+  username: postgres
+  password:
+  pool: 5
+  timeout: 2.0
