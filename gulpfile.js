@@ -92,4 +92,5 @@ gulp.task("js", ["hljs"], function () {
 // TASKS
 
 gulp.task("default", ["sass", "hljs:languages", "js"]);
+gulp.task("heroku:production", ["default"]);
 gulp.task("watch", ["sass:watch"]);
