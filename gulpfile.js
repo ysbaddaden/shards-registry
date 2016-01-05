@@ -11,7 +11,7 @@ var options = {
     includePaths: [__dirname + "/vendor/assets/bootstrap/scss"]
   },
   uglify: {
-    mangle: true,
+    mangle: false,
   },
 };
 
@@ -71,7 +71,7 @@ gulp.task("hljs:languages", function () {
   return gulp
     .src("vendor/assets/highlight/src/languages/*.js")
     .pipe(wrapLanguage())
-    //.pipe(uglify(options.uglify))
+    .pipe(uglify(options.uglify))
     .on("error", console.error.bind(console))
     .pipe(gulp.dest("public/javascripts/highlight"));
 });
@@ -83,7 +83,7 @@ gulp.task("js", ["hljs"], function () {
       "vendor/assets/highlight/highlight.js",
     ])
     .pipe(concat("application.js"))
-    //.pipe(uglify(options.uglify))
+    .pipe(uglify(options.uglify))
     .on("error", console.error.bind(console))
     .pipe(gulp.dest("public/javascripts"));
 });
@@ -92,5 +92,4 @@ gulp.task("js", ["hljs"], function () {
 // TASKS
 
 gulp.task("default", ["sass", "hljs:languages", "js"]);
-gulp.task("heroku:production", ["default"]);
 gulp.task("watch", ["sass:watch"]);
