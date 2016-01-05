@@ -9,6 +9,6 @@
     "through2": "*"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install"
+    "postinstall": "./node_modules/.bin/bower install && gulp"
   }
 }

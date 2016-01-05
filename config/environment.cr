@@ -2,7 +2,7 @@ module Frost
   # :nodoc:
   VIEWS_PATH = "#{ __DIR__ }/../app/views"
 
-  self.root = File.expand_path("..", Dir.current)
+  self.root = File.expand_path("../..", PROGRAM_NAME)
   self.environment = ENV.fetch("FROST_ENV", "development")
 
   module Config
