@@ -1,19 +1,44 @@
-<h1>
-  <%= tag :img, { src: gravatar_url(user.email), class: "avatar avatar-50" } %>
-  <%= user.name %>
-</h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= tag :img, { src: gravatar_url(user.email), class: "avatar avatar-50" } %>
+      <%= user.name %>
+    </h1>
+  </div>
+</div>
 
-<ul>
-  <li>Total shards: <%= user.shards.count %></li>
+<div class="row">
+  <div class="col-md-8 shard-readme">
+    <ul>
+      <li>Total shards: <%= user.shards.count %></li>
+    </ul>
 
-  <% if accessible?(user) %>
-    <li><%= link_to "Edit profile", edit_user_path(user) %></li>
-  <% end %>
-</ul>
+    <h6>Shards</h6>
+    <ul>
+      <% user.shards.each do |shard| %>
+        <li><%= link_to shard.name, shard_path(shard) %></li>
+      <% end %>
+    </ul>
+  </div>
 
-<h6>Shards</h6>
-<ul>
-  <% user.shards.each do |shard| %>
-    <li><%= link_to shard.name, shard_path(shard) %></li>
-  <% end %>
-</ul>
+  <div class="col-md-4">
+    <% if accessible?(user) %>
+      <h6>Settings</h6>
+      <ul>
+        <li><%= link_to "Edit profile", edit_user_path(user) %></li>
+      </ul>
+
+      <h6>API Key</h6>
+      <ul class="list-unstyled">
+        <li>
+          <%= text_field_tag :user_api_key, user.api_key, { class: "form-control" } %>
+        </li>
+        <li>
+          <%= button_to "Reset API Key", reset_api_key_path(user), method: "post", attributes: {
+            class: "btn btn-secondary"
+          } %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>

@@ -42,6 +42,7 @@
     <pre><code class="language-yaml"><%= shard.as_yaml_dependency %></code></pre>
 
     <h6>Versions</h6>
+
     <ul class="list-unstyled shard-versions">
       <% shard.versions.order(:number, :desc).limit(5).each do |version| %>
         <li>
@@ -55,7 +56,24 @@
     </ul>
 
     <% if accessible?(shard) %>
-      <h6>Administrate</h6>
+      <% if shard.repository.type == Repository::Type::GitHub %>
+        <h6>Webhook (GitHub)</h6>
+        <p>
+          You can declare new versions automatically by
+          <%= link_to "creating a webhook", "https://github.com/ysbaddaden/frost/settings/hooks/new" %>
+          on GitHub using this URL (with JSON content type):
+          <%= text_field_tag :github_webhook_url, github_webhook_url + "?api_key=#{ current_user.api_key }", {
+            class: "form-control form-control-sm"
+          } %>
+        </p>
+        <p class="text-muted">
+          Please be sure to select the individual "Create" and "Delete" events
+          and to unselect all other events (for instance the "Push" event is
+          selected by default).
+        </p>
+      <% end %>
+
+      <h6>Settings</h6>
       <ul class="list-inline">
         <li>
           <%= button_to "refresh shard", refresh_shard_path(shard), attributes: {

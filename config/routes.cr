@@ -21,7 +21,7 @@ Frost::Routing.draw do
     end
 
     member do
-      post "/api_key/reset", "users#reset_api_key"
+      post "/api_key/reset", "users#reset_api_key", as: "reset_api_key"
     end
   end
 
@@ -42,6 +42,10 @@ Frost::Routing.draw do
           get :latest
         end
       end
+    end
+
+    scope path: "webhooks", controller: "webhooks" do
+      post :github, as: "github_webhook"
     end
   end
 end

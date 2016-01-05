@@ -9,14 +9,6 @@ class ApiController < Frost::Controller
     head 401
   end
 
-  #def user_signed_in?
-  #  !@current_user.nil?
-  #end
-
-  #def current_user
-  #  @current_user.not_nil!
-  #end
-
   def authorize!(resource)
     if authorized?(resource)
       true
