@@ -5,8 +5,8 @@ shards:
     version: 0.1.0
 
   frost:
-    path: /home/julien/work/github/frost
-    version: 0.1.0
+    github: ysbaddaden/frost
+    commit: 2d842dcf76423d1485683745c6e76e70448bf634
 
   minitest:
     github: ysbaddaden/minitest.cr
