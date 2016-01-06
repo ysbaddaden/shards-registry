@@ -20,4 +20,10 @@ module Frost
       self.secret_key = ENV["SECRET_KEY"]
     end
   end
+
+  unless %w(test development).includes?(Frost.environment)
+    self.logger = Logger.new(STDOUT)
+    logger.level = Logger::INFO
+    logger.formatter = DEFAULT_LOGGER_FORMATTER
+  end
 end
