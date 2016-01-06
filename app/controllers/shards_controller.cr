@@ -11,14 +11,14 @@ class ShardsController < ApplicationController
   # TODO: pagination
   def index
     @shards = if letter = params["letter"]?
-                Shard.where("name ILIKE ?", "#{ params["letter"][0] }%").order(:name)
+                Shard.where("name ILIKE ?", "#{ params["letter"][0] }%").order(:name).include_latest_version
               else
-                Shard.order(:name)
+                Shard.order(:name).include_latest_version
               end
   end
 
   def search
-    @shards = Shard.search(params["q"])
+    @shards = Shard.search(params["q"]).include_latest_version
   end
 
   def show

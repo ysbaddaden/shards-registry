@@ -16,7 +16,12 @@
     <h6>Shards</h6>
     <ul>
       <% user.shards.each do |shard| %>
-        <li><%= link_to shard.name, shard_path(shard) %></li>
+        <li>
+          <%= link_to shard.name, shard_path(shard) %>
+          <small class="text-muted">
+            <%= shard.latest_version.try(&.number) %>
+          </small>
+        </li>
       <% end %>
     </ul>
   </div>

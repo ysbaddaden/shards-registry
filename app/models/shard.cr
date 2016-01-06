@@ -6,6 +6,30 @@ class Shard < Frost::Record
     context.where("shards.name LIKE ?", "#{ q }%")
   end
 
+  def self.already_registered?(url)
+    where({ url: url }).count > 0
+  end
+
+  def self.include_latest_version(context = self)
+    shard_ids = context.pluck(:id)
+
+    if shard_ids.any?
+      versions = Version
+        .select("DISTINCT ON(shard_id) id, shard_id, number, description, released_at")
+        .where({ shard_id: shard_ids })
+        .order(:shard_id)
+        .order(:released_at, :desc)
+
+      versions.each do |version|
+        if shard = context.to_a.find { |shard| shard.id == version.shard_id }
+          shard.latest_version = version
+        end
+      end
+    end
+
+    context
+  end
+
   def validate
     if name.blank?
       errors.add(:name, "name is required")
@@ -22,12 +46,15 @@ class Shard < Frost::Record
     end
   end
 
-  def self.already_registered?(url)
-    where({ url: url }).count > 0
-  end
-
   def repository
     @repository ||= Repository.new(url)
+  end
+
+  def latest_version=(@latest_version : Version)
+  end
+
+  def latest_version
+    @latest_version
   end
 
   def to_param

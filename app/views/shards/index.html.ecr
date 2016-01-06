@@ -12,10 +12,16 @@
   <% end %>
 </ul>
 
-<ul class="shards-list">
+<ul class="list-unstyled list-shards">
   <% shards.each do |shard| %>
     <li>
-      <%= link_to shard.name, shard_path(shard) %>
+      <span class="lead">
+        <%= link_to shard.name, shard_path(shard) %>
+        <small class="text-muted"><%= shard.latest_version.try(&.number) %></small>
+      </span>
+      <% if description = shard.latest_version.try(&.description) %>
+        <span class="list-shards-description"><%= description %></span>
+      <% end %>
     </li>
   <% end %>
 </ul>

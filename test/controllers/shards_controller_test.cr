@@ -5,31 +5,31 @@ class ShardsControllerTest < Frost::Controller::Test
     get "/shards"
     assert_response 200
 
-    assert_select ".shards-list a", count: 4
-    assert_select ".shards-list a", text: /minitest/
-    assert_select ".shards-list a", text: /minigame/
-    assert_select ".shards-list a", text: /pg/
-    assert_select ".shards-list a", text: /webmock/
+    assert_select ".list-shards a", count: 4
+    assert_select ".list-shards a", text: /minitest/
+    assert_select ".list-shards a", text: /minigame/
+    assert_select ".list-shards a", text: /pg/
+    assert_select ".list-shards a", text: /webmock/
   end
 
   def test_index_starting_with_letter
     get "/shards?letter=w"
     assert_response 200, response.body
 
-    refute_select ".shards-list a", text: "minitest"
-    refute_select ".shards-list a", text: "minigame"
-    refute_select ".shards-list a", text: "pg"
-    assert_select ".shards-list a", text: "webmock"
+    refute_select ".list-shards a", text: "minitest"
+    refute_select ".list-shards a", text: "minigame"
+    refute_select ".list-shards a", text: "pg"
+    assert_select ".list-shards a", text: "webmock"
   end
 
   def test_search
     get "/shards/search?q=mini"
     assert_response 200
 
-    assert_select ".shards-list a", text: "minitest"
-    assert_select ".shards-list a", text: "minigame"
-    refute_select ".shards-list a", text: "pg"
-    refute_select ".shards-list a", text: "webmock"
+    assert_select ".list-shards a", text: "minitest"
+    assert_select ".list-shards a", text: "minigame"
+    refute_select ".list-shards a", text: "pg"
+    refute_select ".list-shards a", text: "webmock"
   end
 
   def test_show

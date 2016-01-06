@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  getter! :user
+  getter! :user, :shards, :versions
 
   def before_action
     authenticate_user! unless %w(show new create).includes?(action_name)
@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by({ name: params["id"] })
+    @shards = user.shards.include_latest_version
   end
 
   def new
