@@ -16,6 +16,12 @@ class ShardsControllerTest < Frost::Controller::Test
     assert_equal users(:julien).id.to_s, session["user_id"]
   end
 
+  def test_create_with_email
+    post "/users/session", "user[name]=julien@example.com&user[password]=secret"
+    assert_redirected_to "http://test.host/users/julien"
+    assert_equal users(:julien).id.to_s, session["user_id"]
+  end
+
   def test_create_failure
     post "/users/session", "user[name]=julien&user[password]=wrong"
     assert_response 401

@@ -34,7 +34,7 @@ class User < Frost::Record
   end
 
   def self.find_for_database_authentication(name)
-    find_by({ name: name })
+    where("name = ? OR email = ?", name, name).first
   end
 
   def self.find_for_token_authentication(api_key)

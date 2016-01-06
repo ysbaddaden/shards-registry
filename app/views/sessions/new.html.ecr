@@ -13,7 +13,7 @@ end
 
 <%= form_tag user_session_path, method: "post" do %>
   <div class="form-group">
-    <%= label_tag :user_name, "Name:", { class: "control-label" } %>
+    <%= label_tag :user_name, "Name or Email:", { class: "control-label" } %>
     <%= text_field_tag "user[name]", name, { id: "user_name", class: "form-control", autofocus: true } %>
   </div>
 

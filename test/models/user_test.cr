@@ -15,10 +15,7 @@ class UserTest < Minitest::Test
 
   def test_find_for_database_authentication
     assert_equal users(:julien), User.find_for_database_authentication("julien")
+    assert_equal users(:julien), User.find_for_database_authentication("julien@example.com")
     assert_equal users(:ary), User.find_for_database_authentication("ary")
-  end
-
-  private def create_user(name, password = "secret")
-    user
   end
 end
