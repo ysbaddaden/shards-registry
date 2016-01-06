@@ -3,6 +3,7 @@ require "http/server"
 require "frost/server/handlers/log_handler"
 require "frost/server/handlers/public_file_handler"
 require "frost/server/handlers/deflate_handler"
+require "frost/server/handlers/https_everywhere_handler"
 require "./config/bootstrap"
 
 host = "localhost"
@@ -26,6 +27,7 @@ end
 spawn do
   handlers = [
     Frost::Server::LogHandler.new,
+    Frost::Server::HttpsEverywhereHandler.new,
     HTTP::DeflateHandler.new(%w(
       text/html
       text/plain

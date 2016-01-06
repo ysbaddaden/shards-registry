@@ -6,7 +6,7 @@ shards:
 
   frost:
     github: ysbaddaden/frost
-    commit: 2d842dcf76423d1485683745c6e76e70448bf634
+    commit: a7254efd316b968a986e0b74530718fff564f55c
 
   minitest:
     github: ysbaddaden/minitest.cr
