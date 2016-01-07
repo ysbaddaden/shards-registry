@@ -19,6 +19,7 @@
 @import "nav";
 @import "navbar";
 @import "alert";
+@import "labels";
 @import "list-group";
 
 @import "utilities";
@@ -50,6 +51,12 @@ pre {
   .crystal-icon {
     display: inline-block;
     width: 20px;
+    margin-top: -2px;
+  }
+
+  .label {
+    vertical-align: top;
+    font-size: 0.6em;
   }
 }
 
@@ -60,6 +67,7 @@ pre {
 .has-error .text-muted {
   color: rgb(217, 83, 79);
 }
+
 
 @import "components/flash";
 @import "components/avatar";
