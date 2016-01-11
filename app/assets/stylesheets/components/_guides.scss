@@ -1,0 +1,27 @@
+.guides-content {
+  h2:not(:first-child) {
+    margin-top: 3rem;
+  }
+  h3:not(:first-child) {
+    margin-top: 2rem;
+  }
+  h4:not(:first-child) {
+    margin-top: 1rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+  }
+
+  h2, h3, h4, h5, h6 {
+    code {
+      padding: 0;
+      background: none;
+      border-radius: 0;
+    }
+  }
+
+  p, li {
+    text-align: justify;
+  }
+}

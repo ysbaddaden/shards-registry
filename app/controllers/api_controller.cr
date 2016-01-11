@@ -1,6 +1,6 @@
 class ApiController < Frost::Controller
   def authenticate_user!
-    if token = params["api_key"]?
+    if token = request.headers["X-Api-Key"]?
       @current_user = User.find_for_token_authentication(token)
     else
       head 401

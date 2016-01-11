@@ -2,7 +2,7 @@ require "../../test_helper"
 
 class Api::ShardsControllerTest < Frost::Controller::Test
   def test_search
-    get "/api/shards/search?query=mini"
+    get "/api/v1/shards/search?query=mini"
     assert_response 200
 
     shard_names = JSON.parse(response.body).as_a.map { |shard| (shard as Hash)["name"] }
@@ -10,7 +10,7 @@ class Api::ShardsControllerTest < Frost::Controller::Test
   end
 
   def test_show
-    get "/api/shards/pg"
+    get "/api/v1/shards/pg"
     assert_response 200
 
     shard = JSON.parse(response.body).as_h
@@ -22,8 +22,10 @@ class Api::ShardsControllerTest < Frost::Controller::Test
       "url" => git_url(:awesome),
     }
 
-    post "/api/shards?api_key=#{users(:julien).api_key}",
-      attributes.to_json, { "Content-Type" => "application/json" }
+    post "/api/v1/shards", attributes.to_json, {
+      "Content-Type" => "application/json",
+      "X-Api-Key" => users(:julien).api_key,
+    }
     assert_response 201
 
     sleep 0.5 # wait for job
@@ -37,24 +39,34 @@ class Api::ShardsControllerTest < Frost::Controller::Test
   end
 
   def test_create_failure
-    post "/api/shards?api_key=#{users(:julien).api_key}",
-      "{}", { "Content-Type" => "application/json" }
+    post "/api/v1/shards", "{}", {
+      "Content-Type" => "application/json",
+      "X-Api-Key" => users(:julien).api_key,
+    }
     assert_response 422
   end
 
   def test_create_with_invalid_api_key
-    post "/api/shards?api_key=invalid", "{}", { "Content-Type" => "application/json" }
+    post "/api/v1/shards", "{}", {
+      "Content-Type" => "application/json",
+      "X-Api-Key" => "invalid",
+    }
     assert_response 401
   end
 
   def test_destroy
-    delete "/api/shards/webmock?api_key=#{users(:ary).api_key}"
-    assert_response 200
+    delete "/api/v1/shards/webmock", { "X-Api-Key" => users(:ary).api_key }
+    assert_response 204
     refute Shard.where({ name: "webmock" }).any?
   end
 
+  def test_destroy_unknown_shard
+    delete "/api/v1/shards/unknown", { "X-Api-Key" => users(:julien).api_key }
+    assert_response 404
+  end
+
   def test_destroy_with_unauthorized_api_key
-    delete "/api/shards/webmock?api_key=#{users(:julien).api_key}"
+    delete "/api/v1/shards/webmock", { "X-Api-Key" => users(:julien).api_key }
     assert_response 401
     assert Shard.where({ name: "webmock" }).any?
   end

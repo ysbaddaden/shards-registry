@@ -21,18 +21,26 @@
 @import "alert";
 @import "labels";
 @import "list-group";
+@import "dropdown";
 
 @import "utilities";
-
-//h1, h2, h3, h4, h5, h6 {
-//  font-weight: bold;
-//}
+@import "utilities-responsive";
 
 pre {
   display: block;
   padding: $spacer;
   border-radius: 4px;
   background: $pre-bg;
+}
+
+#top {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#contents {
+  flex: 1;
 }
 
 #header {
@@ -43,7 +51,6 @@ pre {
     padding-left: 0px;
     padding-right: 0px;
   }
-
   .navbar-form {
     margin-top: 4px;
   }
@@ -68,9 +75,25 @@ pre {
   color: rgb(217, 83, 79);
 }
 
+#footer {
+  margin-top: 4 * $spacer-y;
+  padding: $spacer-y 0 0;
+  font-size: $font-size-xs;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #f4f4f4;
+
+  a {
+    color: #666;
+    &:hover { color: #333; }
+  }
+}
+
 
 @import "components/flash";
+@import "components/icon";
 @import "components/avatar";
 @import "components/filter-letter";
 @import "components/list_shards";
+@import "components/guides";
 @import "components/hljs";

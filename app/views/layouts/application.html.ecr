@@ -7,35 +7,42 @@
   <title>Shards</title>
 
   <link rel="stylesheet" href="/stylesheets/application.css"/>
-  <script src="/javascripts/application.js"></script>
 
   <link href="/images/crystal-icon.svg" rel="icon" type="image/svg+xml">
 </head>
 <body>
 
+<div id="top">
   <div id="header">
     <div class="container">
-      <nav class="navbar navbar-dark">
+      <nav class="navbar navbar-dark bg-faded">
         <a class="navbar-brand" href="/shards">
           <img src="/images/crystal-icon.svg" alt="" class="crystal-icon"/>
           Shards
           <small class="label label-danger">beta</small>
         </a>
 
-        <%= form_tag search_shards_path, method: "get", attributes: { class: "form-inline navbar-form pull-left" } do %>
-          <%= search_field_tag :q, params["q"]?, { class: "form-control form-control-sm", placeholder: "Search Shards" } %>
-        <% end %>
-
-        <ul class="nav navbar-nav pull-right">
+        <ul class="nav navbar-nav pull-xs-right">
+          <li class="nav-item">
+            <%= link_to "Guides", guide_path, { class: "nav-link" } %>
+          </li>
           <% if user_signed_in? %>
-            <li class="nav-item">
+            <li class="nav-item hidden-sm-down">
               <%= link_to "New Shard", new_shard_path, { class: "nav-link" } %>
             </li>
             <li class="nav-item">
-              <%= link_to current_user.name, user_path(current_user), { class: "nav-link" } %>
+              <%= link_to "Profile", user_path(current_user), { class: "nav-link" } %>
             </li>
             <li class="nav-item">
-              <%= link_to "Logout", user_session_path, { class: "nav-link", data_method: "delete" } %>
+              <div class="dropdown dropdown-align-right">
+                <a href="#" id="profileMenu" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"></a>
+                <div class="dropdown-menu" aria-labelledby="profileMenu">
+                  <%= link_to "New Shard", new_shard_path, { class: "dropdown-item" } %>
+                  <%= link_to "Edit Profile", edit_user_path(current_user), { class: "dropdown-item" } %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "Logout", user_session_path, { data_method: "delete", class: "dropdown-item" } %>
+                </div>
+              </div>
             </li>
           <% else %>
             <li class="nav-item">
@@ -46,31 +53,54 @@
             </li>
           <% end %>
         </ul>
+
+        <%= form_tag search_shards_path, method: "get", attributes: {
+          class: "form-inline navbar-form pull-md-left"
+        } do %>
+          <%= search_field_tag :q, params["q"]?, { class: "form-control form-control-sm", placeholder: "Search Shards" } %>
+        <% end %>
       </nav>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
+  <div id="contents">
+    <div class="container">
 
-        <% if flash = flash_message %>
-          <% if notice = flash["notice"]? %>
-            <div class="flash alert alert-success" role="alert">
-              <%= notice %>
-            </div>
-          <% elsif alert = flash["alert"]? %>
-            <div class="flash alert alert-danger" role="alert">
-              <%= alert %>
-            </div>
+      <div class="row">
+        <div class="col-xs-12">
+
+          <% if flash = flash_message %>
+            <% if notice = flash["notice"]? %>
+              <div class="flash alert alert-success" role="alert">
+                <%= notice %>
+              </div>
+            <% elsif alert = flash["alert"]? %>
+              <div class="flash alert alert-danger" role="alert">
+                <%= alert %>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <%= yield %>
+          <%= yield %>
+        </div>
       </div>
+
     </div>
   </div>
 
+  <div id="footer">
+    <div class="container">
+      <ul class="list-inline">
+        <li class="list-inline-item"><%= link_to "Shards", shards_path %></li>
+        <li class="list-inline-item"><%= link_to "Guides", guide_path %></li>
+        <li class="list-inline-item"><%= link_to "Source", "https://github.com/ysbaddaden/shards-registry" %></li>
+        <li class="list-inline-item"><%= link_to "Crystal", "http://crystal-lang.org/" %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/application.js"></script>
 <script>
   hljs.configure({ languages: [] });
   hljs.initHighlightingOnLoad();

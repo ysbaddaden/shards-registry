@@ -25,21 +25,25 @@ Frost::Routing.draw do
     end
   end
 
+  get "/guides(/*name)(.:format)", "guides#show", as: "guide"
+
   namespace :api do
-    resources :users, only: %i(create update) do
-      collection do
-        get :api_key
-      end
-    end
-
-    resources :shards, only: %i(show create destroy) do
-      collection do
-        get :search
-      end
-
-      resources :versions, only: %i(index) do
+    scope path: "v1" do
+      resources :users, only: %i(create update) do
         collection do
-          get :latest
+          get :api_key
+        end
+      end
+
+      resources :shards, only: %i(show create destroy) do
+        collection do
+          get :search
+        end
+
+        resources :versions, only: %i(index) do
+          collection do
+            get :latest
+          end
         end
       end
     end

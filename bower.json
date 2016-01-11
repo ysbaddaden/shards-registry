@@ -1,7 +1,7 @@
 {
   "name": "shards-registry",
   "dependencies": {
-    "bootstrap": "4.0.0-alpha",
+    "bootstrap": "4.0.0-alpha.2",
     "highlight": "https://github.com/isagalaev/highlight.js/archive/9.0.0.tar.gz",
     "vanilla-ujs": "*"
   }

@@ -1,19 +1,16 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <%= link_to shard.name, shard_path(shard) %>
-      <% if description = shard.versions.latest.try(&.description) %>
-        <small class="text-muted"><%= description %></small>
+      <%= link_to(shard_path(shard)) do %>
+        All versions of <%= shard.name %>
       <% end %>
     </h1>
-
-    <h6>Versions</h6>
 
     <ul class="list-unstyled">
       <% shard.versions.order(:number, :desc).each do |version| %>
         <li>
           <strong><%= version.number %></strong>
-          <small class="text-muted"><%= version.released_at %></small>
+          <small class="text-muted">- <%= localize version.released_at %></small>
         </li>
       <% end %>
     </ul>

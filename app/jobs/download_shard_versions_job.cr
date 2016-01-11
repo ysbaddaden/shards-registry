@@ -11,6 +11,7 @@ class DownloadShardVersionsJob < Job
   def run
     clone_or_update_repository
 
+    # TODO: also extract authors, dependencies and development_dependencies
     unknown_versions.each do |version|
       number, released_at = version
 

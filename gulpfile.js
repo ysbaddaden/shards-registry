@@ -7,7 +7,7 @@ var through = require("through2");
 
 var options = {
   sass: {
-    outputStyle: "compressed",
+    //outputStyle: "compressed",
     includePaths: [__dirname + "/vendor/assets/bootstrap/scss"]
   },
   uglify: {
@@ -79,6 +79,7 @@ gulp.task("hljs:languages", function () {
 gulp.task("js", ["hljs"], function () {
   return gulp
     .src([
+      "app/assets/javascripts/**/*.js",
       "vendor/assets/vanilla-ujs/vanilla-ujs.js",
       "vendor/assets/highlight/highlight.js",
     ])
@@ -88,8 +89,12 @@ gulp.task("js", ["hljs"], function () {
     .pipe(gulp.dest("public/javascripts"));
 });
 
+gulp.task("js:watch", function () {
+  return gulp.watch("app/assets/javascripts/**/*.js", ["js"]);
+});
+
 
 // TASKS
 
 gulp.task("default", ["sass", "hljs:languages", "js"]);
-gulp.task("watch", ["sass:watch"]);
+gulp.task("watch", ["sass:watch", "js:watch"]);

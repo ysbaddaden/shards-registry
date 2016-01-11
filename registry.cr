@@ -27,7 +27,7 @@ end
 spawn do
   handlers = [
     Frost::Server::LogHandler.new,
-    Frost::Server::HttpsEverywhereHandler.new,
+    #Frost::Server::HttpsEverywhereHandler.new,
     HTTP::DeflateHandler.new(%w(
       text/html
       text/plain

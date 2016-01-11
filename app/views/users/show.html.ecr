@@ -14,16 +14,25 @@
     </ul>
 
     <h6>Shards</h6>
-    <ul>
-      <% user.shards.each do |shard| %>
-        <li>
-          <%= link_to shard.name, shard_path(shard) %>
-          <small class="text-muted">
-            <%= shard.latest_version.try(&.number) %>
-          </small>
-        </li>
-      <% end %>
-    </ul>
+
+    <% if user.shards.any? %>
+      <ul>
+        <% user.shards.each do |shard| %>
+          <li>
+            <%= link_to shard.name, shard_path(shard) %>
+            <small class="text-muted">
+              <%= shard.latest_version.try(&.number) %>
+            </small>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if accessible?(user) %>
+      <p>
+        <%= link_to "New Shard", new_shard_path, { class: "btn btn-primary" } %>
+      </p>
+    <% end %>
   </div>
 
   <div class="col-md-4">

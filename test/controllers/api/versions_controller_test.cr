@@ -2,7 +2,7 @@ require "../../test_helper"
 
 class Api::VersionsControllerTest < Frost::Controller::Test
   def test_index
-    get "/api/shards/minitest/versions"
+    get "/api/v1/shards/minitest/versions"
     assert_response 200
 
     numbers = JSON.parse(response.body).as_a.map do |version|
@@ -12,7 +12,7 @@ class Api::VersionsControllerTest < Frost::Controller::Test
   end
 
   def test_latest
-    get "/api/shards/minitest/versions/latest"
+    get "/api/v1/shards/minitest/versions/latest"
     assert_response 200
     assert_equal "0.1.3", JSON.parse(response.body)["version"].as_s
   end

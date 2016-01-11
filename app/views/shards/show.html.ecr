@@ -29,7 +29,11 @@
         <% end %>
       </li>
       <li>
-        <%= shard.repository.type %>
+        <% if shard.repository.type == Repository::Type::GitHub %>
+          <%= svg_icon :github %>
+        <% else %>
+          <%= shard.repository.type %>
+        <% end %>
         <%= link_to shard.repository.repo || shard.url, shard.url %>
       </li>
       <% if license = version.try(&.license).presence %>
@@ -41,46 +45,50 @@
 
     <pre><code class="language-yaml"><%= shard.as_yaml_dependency %></code></pre>
 
-    <h6>Versions</h6>
+    <% if shard.versions.any? %>
+      <h6>Versions</h6>
 
-    <ul class="list-unstyled shard-versions">
-      <% shard.versions.order(:number, :desc).limit(5).each do |version| %>
-        <li>
-          <strong><%= version.number %></strong>
-          <small class="text-muted"><%= version.released_at %></small>
-        </li>
-      <% end %>
-      <% if (count = shard.versions.count) > 5 %>
-        <li><%= link_to "See all #{ count } versions", shard_versions_path(shard) %></li>
-      <% end %>
-    </ul>
+      <ul class="list-unstyled shard-versions">
+        <% shard.versions.order(:number, :desc).limit(5).each do |version| %>
+          <li>
+            <strong><%= version.number %></strong>
+            <small class="text-muted"><%= version.released_at %></small>
+          </li>
+        <% end %>
+        <% if (count = shard.versions.count) > 5 %>
+          <li><%= link_to "See all #{ count } versions", shard_versions_path(shard) %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <% if accessible?(shard) %>
       <% if shard.repository.type == Repository::Type::GitHub %>
         <h6>Webhook (GitHub)</h6>
-        <p>
+        <p class="text-muted">
           You can declare new versions automatically by
           <%= link_to "creating a webhook", "https://github.com/ysbaddaden/frost/settings/hooks/new" %>
-          on GitHub using this URL (with JSON content type):
-          <%= text_field_tag :github_webhook_url, github_webhook_url + "?api_key=#{ current_user.api_key }", {
-            class: "form-control form-control-sm"
-          } %>
+          on GitHub using the URL:
+          <%= text_field_tag :github_webhook_url, github_webhook_url, { class: "form-control form-control-sm" } %>
+
+          your API key as the secret:
+          <%= text_field_tag :github_webhook_secret, current_user.api_key, { class: "form-control form-control-sm" } %>
+
+          and the content type: <code>application/json</code>
         </p>
         <p class="text-muted">
-          Please be sure to select the individual "Create" and "Delete" events
-          and to unselect all other events (for instance the "Push" event is
-          selected by default).
+          Please select the individual "Create" and "Delete" events and unselect
+          all other events (the "Push" event is selected by default).
         </p>
       <% end %>
 
       <h6>Settings</h6>
       <ul class="list-inline">
-        <li>
+        <li class="list-inline-item">
           <%= button_to "refresh shard", refresh_shard_path(shard), attributes: {
             class: "btn btn-primary"
           } %>
         </li>
-        <li>
+        <li class="list-inline-item">
           <%= button_to "delete shard", shard_path(shard), method: "delete", attributes: {
             data_confirm: "Are you sure you want to delete this shard?",
             class: "btn btn-danger"

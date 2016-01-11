@@ -32,13 +32,13 @@ module Api
     end
 
     def update
-      user = User.find(params["id"])
+      user = User.find_by({ name: params["id"] })
       return unless authorize!(user)
 
       user_params(user)
 
       if user.save
-        head 200
+        head 204
       else
         render text: user.errors.to_json, status: 422
       end

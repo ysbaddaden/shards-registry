@@ -3,11 +3,13 @@
 $headings-font-weight: bold;
 $font-family-monospace: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 
+$cursor-disabled: default;
+
 $pre-bg: #f8f8f8;
 $code-color: #a71d5d;
 
 $navbar-color: #624288;
-$navbar-dark-color: rgba($navbar-color, .5);
-$navbar-dark-hover-color: rgba($navbar-color, .75);
-$navbar-dark-active-color: rgba($navbar-color, 1);
-$navbar-dark-disabled-color: rgba($navbar-color, .25);
+
+$list-group-border-width: 0;
+$list-group-border-radius: 0;
+$list-group-active-bg: $navbar-color;

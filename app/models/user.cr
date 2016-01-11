@@ -13,6 +13,8 @@ class User < Frost::Record
       errors.add(:name, "name is required")
     elsif (name.to_s =~ /\A[a-zA-Z0-9_\-]+\Z/).nil?
       errors.add(:name, "name must only contain ASCII chars, digits, dashes or underscores")
+    elsif !validate_uniqueness_of(:name)
+      errors.add(:name, "name conflict")
     end
 
     if email.blank?

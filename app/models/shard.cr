@@ -3,7 +3,7 @@ class Shard < Frost::Record
   has_many :versions
 
   def self.search(q, context = self)
-    context.where("shards.name LIKE ?", "#{ q }%")
+    context.where("shards.name ILIKE ?", "#{ q }%")
   end
 
   def self.already_registered?(url)
@@ -35,6 +35,8 @@ class Shard < Frost::Record
       errors.add(:name, "name is required")
     elsif (name.to_s =~ /\A[a-zA-Z0-9_\-]+\Z/).nil?
       errors.add(:name, "name must only contain ASCII chars, digits, dashes or underscores")
+    elsif !validate_uniqueness_of(:name)
+      errors.add(:name, "name conflict")
     end
 
     if user.nil?
@@ -44,6 +46,13 @@ class Shard < Frost::Record
     if Shard.already_registered?(url)
       errors.add(:url, "already registered")
     end
+  end
+
+  # :nodoc:
+  macro validate_uniqueness_of(attr_name)
+    %test = self.class.where({ {{ attr_name }} => {{ attr_name.id }} })
+    %test = %test.where("#{ self.class.primary_key } <> ?", id) if id
+    !%test.any?
   end
 
   def repository

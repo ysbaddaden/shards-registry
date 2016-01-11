@@ -38,4 +38,24 @@ abstract class ApplicationView < Frost::View
       "http://opensource.org/licenses/#{ license }"
     end
   end
+
+  def svg_icon(name, size = 20)
+    tag :img, {
+      src: "/images/#{ name }.svg",
+      class: "icon icon-#{ name }",
+      width: size,
+      height: size
+    }
+    #content_tag(:svg, { class: "icon icon-#{ name }", width: size, height: size }) do
+    #  content_tag(:use, "", { "xlink:href" => "/images/icons.svg##{ name }" })
+    #end
+  end
+
+  def localize(date, format = :full)
+    if date.is_a?(Time)
+      date.to_s("%B %d, %Y at %k:%M")
+    else
+      date
+    end
+  end
 end

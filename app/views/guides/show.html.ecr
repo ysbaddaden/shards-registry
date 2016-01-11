@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-3">
+    <h6>Guides</h6>
+
+    <div class="list-group list-guides">
+      <%= link_to "Command Reference", guide_path(:cli), {
+        class: ["list-group-item disabled", "active" if page.name == "cli"]
+      } %>
+
+      <%= link_to "Make Your Shards", guide_path(:create), {
+        class: ["list-group-item disabled", "active" if page.name == "create"]
+      } %>
+
+      <%= link_to "Webhooks", guide_path(:api), {
+        class: ["list-group-item", "active" if page.name == "webhooks"]
+      } %>
+
+      <%= link_to "Registry API", guide_path(:api), {
+        class: ["list-group-item", "active" if page.name == "api"]
+      } %>
+    </div>
+  </div>
+
+  <div class="col-md-9 guides-content">
+    <%
+    body = page.body
+      .gsub("#PROTOCOL#", request.headers["X-Forwarded-Proto"]? || "http")
+      .gsub("#HOSTNAME#", request.headers["Host"])
+    %>
+    <%= CommonMark.new(body, safe: true, smart: true).to_html %>
+  </div>
+</div>

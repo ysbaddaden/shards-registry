@@ -32,7 +32,7 @@ module Api
 
       if shard.save
         DownloadShardVersionsJob.run(shard.id)
-        head 201
+        render text: shard.to_json, status: 201
       else
         render text: shard.errors.to_json, status: 422
       end
@@ -42,7 +42,7 @@ module Api
       shard = Shard.find_by({ name: params["id"] })
       return unless authorize!(shard)
       shard.destroy
-      head 200
+      head 204
     rescue Frost::Record::RecordNotFound
       head 404
     end
