@@ -23,7 +23,7 @@ module Frost
 
   unless %w(test development).includes?(Frost.environment)
     self.logger = Logger.new(STDOUT)
-    logger.level = Logger::INFO
+    logger.level = Logger::Severity::DEBUG
     logger.formatter = DEFAULT_LOGGER_FORMATTER
   end
 end
