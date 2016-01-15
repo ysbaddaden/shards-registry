@@ -1,10 +1,6 @@
 CRYSTAL_BIN ?= $(shell which crystal)
 SOURCES := registry.cr $(shell find app libs -type f)
 
-ifdef RELEASE
-	CRFLAGS := $(CRFLAGS) --release
-endif
-
 .PHONY: tasks doc routes notes test assets stats
 .PHONY: db db_migrate db_up db_down db_redo db_load db_dump
 
