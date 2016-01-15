@@ -18,7 +18,7 @@ shards:
 
   pool:
     github: ysbaddaden/pool
-    version: 0.2.0
+    version: 0.2.1
 
   selenium-webdriver:
     github: ysbaddaden/selenium-webdriver-crystal
