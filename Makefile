@@ -9,7 +9,7 @@ endif
 .PHONY: db db_migrate db_up db_down db_redo db_load db_dump
 
 
-all: db_migrate bin/registry
+all: bin/registry
 
 run: all
 	bin/env.sh bin/registry
