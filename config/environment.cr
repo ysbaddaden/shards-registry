@@ -22,6 +22,7 @@ module Frost
   end
 
   unless %w(test development).includes?(Frost.environment)
+    # heroku
     self.logger = Logger.new(STDOUT)
     logger.level = Logger::Severity::DEBUG
     logger.formatter = DEFAULT_LOGGER_FORMATTER

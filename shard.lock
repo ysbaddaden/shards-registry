@@ -6,11 +6,11 @@ shards:
 
   frost:
     github: ysbaddaden/frost
-    version: 0.2.0
+    commit: 8cfa856f331d8e881c63a3609636de4eb2107350
 
   minitest:
     github: ysbaddaden/minitest.cr
-    version: 0.3.0
+    version: 0.3.1
 
   pg:
     github: will/crystal-pg
@@ -26,5 +26,5 @@ shards:
 
   shards:
     github: ysbaddaden/shards
-    version: 0.5.4
+    version: 0.6.0
 

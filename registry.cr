@@ -1,53 +1,40 @@
-require "option_parser"
-require "http/server"
-require "frost/server/handlers/log_handler"
-require "frost/server/handlers/public_file_handler"
-require "frost/server/handlers/deflate_handler"
-require "frost/server/handlers/https_everywhere_handler"
+require "frost/server"
 require "./config/bootstrap"
 
-host = "localhost"
-port = 9292
+module ShardRegistry
+  class Server < Frost::Server
+    #DEFLATE_MIME_TYPES = %w(
+    #  text/html
+    #  text/plain
+    #  text/xml
+    #  text/css
+    #  text/javascript
+    #  application/javascript
+    #  application/json
+    #  image/svg+xml
+    #)
 
-opts = OptionParser.new
-opts.on("-b HOST", "--bind=HOST", "Bind to host (defaults to localhost)") { |value| host = value }
-opts.on("-p PORT", "--port=PORT", "Bind to port (defaults to 9292)") { |value| port = value.to_i }
-opts.on("-h",      "--help",      "Show this help") { puts opts; exit }
+    class DisableKeepAliveHandler < HTTP::Handler
+      def call(context)
+        context.response.headers["Connection"] = "close"
+        call_next(context)
+      end
+    end
 
-begin
-  opts.parse(ARGV)
-rescue ex : OptionParser::InvalidOption
-  STDERR.puts ex.message
-  STDERR.puts
-  STDERR.puts "Available options:"
-  STDERR.puts opts
-  exit
-end
+    def handlers
+      [
+        Frost::Server::LogHandler.new,
+        Frost::Server::HttpsEverywhereHandler.new,
+        DisableKeepAliveHandler.new,
+        HTTP::DeflateHandler.new,
+        Frost::Server::PublicFileHandler.new(File.join(Frost.root, "public"))
+      ]
+    end
 
-spawn do
-  handlers = [
-    Frost::Server::LogHandler.new,
-    #Frost::Server::HttpsEverywhereHandler.new,
-    HTTP::DeflateHandler.new(%w(
-      text/html
-      text/plain
-      text/xml
-      text/css
-      text/javascript
-      application/javascript
-      application/json
-      image/svg+xml
-    )),
-    Frost::Server::PublicFileHandler.new(File.join(Frost.root, "public"))
-  ]
-  dispatcher = ShardRegistry::Dispatcher.new
-
-  server = HTTP::Server.new(host, port, handlers) do |request|
-    dispatcher.call(request)
+    def dispatcher
+      @dispatcher ||= ShardRegistry::Dispatcher.new
+    end
   end
 
-  puts "Listening on http://#{ host }:#{ port }"
-  server.listen
+  Server.run
 end
-
-sleep

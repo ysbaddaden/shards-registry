@@ -8,7 +8,7 @@ authors:
 dependencies:
   frost:
     github: ysbaddaden/frost
-    version: 0.2.0
+    branch: master
 
   shards:
     github: ysbaddaden/shards
