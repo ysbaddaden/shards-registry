@@ -28,4 +28,14 @@ class Frost::Controller::Test
   def logout
     session.delete("user_id") if @session
   end
+
+  def wait_for(timeout = 5.0)
+    start = Time.now
+    loop do
+      Frost::Record.release_connection
+      sleep 0.01
+      break if yield
+      raise "Error: waited for #{timeout} seconds" if (Time.now - start).to_f > timeout
+    end
+  end
 end

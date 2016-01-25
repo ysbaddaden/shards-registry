@@ -15,7 +15,7 @@ module Api::WebhooksControllerTest
       post_github :create, shard
       assert_response 204
 
-      sleep 0.5
+      wait_for { shard.versions.count >= 3 }
       assert_equal ["1.0.0", "1.2.0", "2.0.0"], shard.versions.pluck(:number)
     end
 
@@ -31,7 +31,7 @@ module Api::WebhooksControllerTest
       }
       assert_response 204
 
-      sleep 0.5
+      wait_for { shard.versions.count >= 3 }
       assert_equal ["1.0.0", "1.2.0", "2.0.0"], shard.versions.pluck(:number)
     end
 

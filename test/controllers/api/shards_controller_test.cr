@@ -28,12 +28,11 @@ class Api::ShardsControllerTest < Frost::Controller::Test
     }
     assert_response 201
 
-    sleep 0.5 # wait for job
-
     shard = Shard.find_by({ name: "awesome" })
     assert_equal git_url(:awesome), shard.url
     assert_equal users(:julien), shard.user
 
+    wait_for { shard.versions.count >= 7 }
     assert_equal ["1.0.0", "1.1.0", "1.1.1", "1.1.2", "1.2.0", "2.0.0", "2.1.0"],
       shard.versions.order(:number).pluck(:number)
   end
