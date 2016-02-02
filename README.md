@@ -1,10 +1,10 @@
 # Shards Registry
 
-The source of the Web registry of Crystal Shards.
+The source code for the Web registry of Crystal Shards.
 
 ## Requirements
 
-* Crystal >= 0.10.0
+* Crystal >= 0.11.1
 
   Please refer to <http://crystal-lang.org/docs/installation> for
   instructions for your operating system.
